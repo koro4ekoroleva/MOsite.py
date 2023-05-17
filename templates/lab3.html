@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+ 
+{% block content %}
+{{ super() }}
+<p>Предсказание сорта пшеницы на основе KNN </p>
+<form action="/p_lab3" method="POST">
+    <p><input name="list1" class="form_text" type="text">площадь</p>
+    <p><input name="list2" class="form_text" type="text">периметр</p>
+    <p><input name="list3" class="form_text" type="text">компактность</p>
+    <p><input name="list4" class="form_text" type="text">длина ядра</p>
+    <p><input name="list5" class="form_text" type="text">ширина ядра</p>
+    <p><input name="list6" class="form_text" type="text">коэффициент асимметрии</p>
+    <p><input name="list7" class="form_text" type="text">длина желобка ядра</p>
+    <input type="submit" class="form_btn" value="Узнать сорт пшеницы">
+    <h1>{{class_model}}</h1>
+</form>
+<img src="{{url_for('static', filename='/img/he.png')}}", height="1000"/>
+{% endblock %}
