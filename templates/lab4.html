@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+ 
+{% block content %}
+{{ super() }}
+<center>
+<p>SGD</p>
+<img src="{{url_for('static', filename='/img/sgd-metriks.png')}}"/>
+<p></p>
+<p>KNN</p>
+<img src="{{url_for('static', filename='/img/knn-metriks.png')}}"/>
+</center>
+{% endblock %}

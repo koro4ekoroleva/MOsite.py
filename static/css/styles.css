@@ -1,5 +1,6 @@
 html, body {
-	font-famiLy: 'Arial';
+    font-family: 'Monotype Corsiva';
+
 	margin: 0;
 	padding: 0;
 	height: 100%;
@@ -31,7 +32,7 @@ ul.mainmenu li {
 }
 ul.mainmenu li.last {float: right;}
 ul.mainmenu li a {
-	coLor: #fdc073;
+	color: #FFF1BD;
 	text-decoration: none;
 }
 ul.mainmenu li a:hover {
@@ -58,4 +59,8 @@ form {
 .form_btn{
   background-color: #f6f6f6; /*Цвет текстового поля*/
   border-radius: 10px 10px 10px 10px; /*Закругляем уголки*/
+}
+
+input[type=submit]{
+    font-famiLy="Monotype Corsiva"
 }

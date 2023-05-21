@@ -10,9 +10,10 @@ from sklearn import tree
 
 app = Flask(__name__)
 
-menu = [{"name": "Линейная регрессия - стоимость жилья", "url": "p_knn"},
-        {"name": "Предсказание сорта пшеницы на основе SGD", "url": "p_lab2"},
-        {"name": "Предсказание сорта пшеницы на основе KNN", "url": "p_lab3"}]
+menu = [{"name": "Линейная регрессия", "url": "p_knn"},
+        {"name": "SGD", "url": "p_lab2"},
+        {"name": "KNN", "url": "p_lab3"},
+        {"name": "Метрики качества", "url": "p_lab4"}]
 
 loaded_model_knn = pickle.load(open('model/knn_pickle_file', 'rb'))
 
@@ -88,6 +89,9 @@ def f_lab3():
         return render_template('lab3.html', title="Метод KNN", menu=menu,
                                class_model="Это " + str(*pred) + " сорт")
 
+@app.route("/p_lab4")
+def f_lab4():
+    return render_template('lab4.html', title="Метрики качества", menu=menu)
 
 if __name__ == "__main__":
     app.run(debug=True)
