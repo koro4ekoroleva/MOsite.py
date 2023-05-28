@@ -3,7 +3,7 @@ import pickle
 # pip install scikit-learn
 import numpy as np
 import pandas as pd
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from sklearn.linear_model import LinearRegression, SGDClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn import tree
@@ -85,13 +85,51 @@ def f_lab3():
         model.fit(dataset_2, dataset_4)
         pred = model.predict(
             [[X_new[0][0], X_new[0][1], X_new[0][2], X_new[0][3], X_new[0][4], X_new[0][5], X_new[0][6]]])
-        print(pred)
         return render_template('lab3.html', title="Метод KNN", menu=menu,
                                class_model="Это " + str(*pred) + " сорт")
 
 @app.route("/p_lab4")
 def f_lab4():
     return render_template('lab4.html', title="Метрики качества", menu=menu)
+
+# Реализуем свое API
+@app.route('/api', methods=['get'])
+def create_news():
+    value1 = request.args.get('key1')
+    value2 = request.args.get('key2')
+    value3 = request.args.get('key3')
+    value4 = request.args.get('key4')
+    value5 = request.args.get('key5')
+    value6 = request.args.get('key6')
+    value7 = request.args.get('key7')
+    X_new = np.array([[float(value1),
+                       float(value2),
+                       float(value3),
+                       float(value4),
+                       float(value5),
+                       float(value6),
+                       float(value7)]])
+    dataset_2 = np.array(
+        pd.read_excel('D:/ЛИЗА/БГИТУ/Python Казаков (МО)/Lizok/model/seeds_dataset.xlsx', nrows=649)[
+            ['площадь', 'периметр', 'компактность', 'длина ядра', 'ширина ядра', 'коэффициент асимметрии',
+             'длина желобка ядра']])
+    dataset_4 = np.array(
+        pd.read_excel('D:/ЛИЗА/БГИТУ/Python Казаков (МО)/Lizok/model/seeds_dataset.xlsx', nrows=649)[['класс']])
+    model = KNeighborsClassifier(n_neighbors=6)
+    model.fit(dataset_2, dataset_4)
+    pred = model.predict(
+        [[X_new[0][0], X_new[0][1], X_new[0][2], X_new[0][3], X_new[0][4], X_new[0][5], X_new[0][6]]])
+
+
+    return jsonify(values=f'{pred}')
+# ///////////Вызов
+# в браузере http://127.0.0.1:5000/api?key1=10.91&key2=12.8&key3=0.8372&key4=5.088&key5=2.675&key6=4.179&key7=4.956
+# должно быть значение 3
+
+
+# или из приложения
+# from requests import get
+# print(get('http://localhost:5000/api?key1=value1&key2=value2').json())
 
 if __name__ == "__main__":
     app.run(debug=True)
